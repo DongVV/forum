@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['updated_at', 'created_at'];
 
     public function owner()
     {
