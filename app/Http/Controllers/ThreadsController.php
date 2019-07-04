@@ -7,36 +7,50 @@ use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('store');
+    }
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of Threads
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $threads = Thread::latest()->get();
+        $threads = Thread::latest()->paginate(15);
+//        $threads->withPath('threads/page');
+
         return view('threads.index', compact('threads'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a Thread
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('threads.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created thread in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $thread = Thread::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        return redirect($thread->path);
     }
 
     /**

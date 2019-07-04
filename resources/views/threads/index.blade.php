@@ -19,6 +19,7 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-8 mt-2">{{ $threads->links('layouts.paginate', ['paginator' => $threads]) }}</div>
         </div>
     </div>
 @endsection

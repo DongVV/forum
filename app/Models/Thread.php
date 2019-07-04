@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    protected $guarded = ['updated_at', 'created_at'];
+    protected $guarded = [];
 
     public function path()
     {
