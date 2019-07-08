@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use Mockery\Exception;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Thread;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateThreadTest extends TestCase
@@ -25,8 +23,8 @@ class CreateThreadTest extends TestCase
     /** @test */
     public function AnAuthenticateUserCanCreateNewForumThreads()
     {
-        $this->be(factory(User::class)->create());
-        $thread = factory(Thread::class)->make();
+        $this->be(create(User::class));
+        $thread = make(Thread::class);
 
         $this->post('/threads', $thread->toArray());
 
