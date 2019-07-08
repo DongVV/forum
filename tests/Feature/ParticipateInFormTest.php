@@ -23,10 +23,10 @@ class ParticipateInFormTest extends TestCase
     /** @test */
     public function AnAuthenticatedUserMayParticipateInForumThreads()
     {
-        $this->be(factory(User::class)->create());
+        $this->signIn();
 
-        $thread = factory(Thread::class)->create();
-        $reply = factory(Reply::class)->make();
+        $thread = create(Thread::class);
+        $reply = make(Reply::class);
 
         $this->post($thread->path(). '/replies', $reply->toArray());
         $this->get($thread->path())->assertSee($reply->body);
